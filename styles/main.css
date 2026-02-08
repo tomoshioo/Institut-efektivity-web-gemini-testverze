@@ -1,0 +1,89 @@
+/* Institut Efektivity – main styles */
+:root {
+    --brand-orange: #FF4D00;
+    --brand-black: #050505;
+    --brand-dark: #0F0F0F;
+    --brand-gray: #1A1A1A;
+    --brand-light: #F4F4F4;
+}
+
+/* Typography Scale */
+.text-massive {
+    font-size: clamp(3rem, 10vw, 9rem);
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+}
+
+/* Duotone Effect */
+.duotone-wrap {
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+}
+.duotone-wrap img {
+    filter: grayscale(100%) contrast(1.2);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    mix-blend-mode: luminosity;
+}
+.duotone-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--brand-orange);
+    mix-blend-mode: multiply;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+.group:hover .duotone-wrap img {
+    filter: grayscale(0%) contrast(1);
+    transform: scale(1.05);
+    mix-blend-mode: normal;
+}
+.group:hover .duotone-wrap::after {
+    opacity: 0.2;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+    animation: marquee 30s linear infinite;
+}
+
+/* Utilities */
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+}
+.hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+.hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.loader {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-left-color: var(--brand-orange);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
